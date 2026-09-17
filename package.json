@@ -8,6 +8,7 @@
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
     "preview": "node scripts/serve.mjs --dist",
+    "lan": "node scripts/serve.mjs --dist --lan",
     "check": "node scripts/check.mjs"
   },
   "engines": { "node": ">=20.11" }

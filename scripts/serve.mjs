@@ -3,6 +3,7 @@ import { readFile, stat } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
 const root = resolve(import.meta.dirname, '..', process.argv.includes('--dist') ? 'dist' : '.');
 const port = Number(process.env.PORT || 5180);
+const host = process.argv.includes('--lan') ? '0.0.0.0' : '127.0.0.1';
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8' };
 http.createServer(async (req, res) => {
   try {
@@ -27,4 +28,4 @@ http.createServer(async (req, res) => {
     res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
     try { res.end(await readFile(resolve(root, '404.html'))); } catch { res.end('Not found'); }
   }
-}).listen(port, '127.0.0.1', () => console.log(`Continental Construction: http://127.0.0.1:${port}`));
+}).listen(port, host, () => console.log(`Continental Construction: http://${host}:${port}`));

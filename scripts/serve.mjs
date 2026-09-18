@@ -4,7 +4,7 @@ import { resolve, extname, sep } from 'node:path';
 const root = resolve(import.meta.dirname, '..', process.argv.includes('--dist') ? 'dist' : '.');
 const port = Number(process.env.PORT || 5180);
 const host = process.argv.includes('--lan') ? '0.0.0.0' : '127.0.0.1';
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8' };
+const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8' };
 http.createServer(async (req, res) => {
   try {
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405); return res.end('Method not allowed'); }
@@ -15,7 +15,7 @@ http.createServer(async (req, res) => {
       res.writeHead(403); return res.end('Forbidden');
     }
     // Dev mode exposes only site entry files and public assets, never repository internals.
-    const isPage = ['index.html', 'styles.css', 'main.js', 'privacy.html', 'credits.html', '404.html'].includes(relative);
+    const isPage = ['index.html', 'styles.css', 'main.js', 'portfolio-data.js', 'privacy.html', 'credits.html', '404.html'].includes(relative);
     const isAsset = /^(images|brand|fonts)\//.test(relative);
     if (!isPage && !isAsset) throw new Error('Not found');
     let file = target;

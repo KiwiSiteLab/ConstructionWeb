@@ -41,3 +41,47 @@ body.modal-open{overflow:hidden}a{color:inherit;text-decoration:none}button{font
 @media(max-width:1150px){.why-us{gap:40px}.why-reasons{column-gap:24px}.why-reasons h3{font-size:17px}.why-proof{grid-template-columns:1fr 1.6fr}.why-proof a{grid-column:2}}
 @media(max-width:900px){.why-us{grid-template-columns:1fr}.why-heading>p:not(.eyebrow){max-width:600px}.why-reasons{column-gap:36px}.why-reasons h3{font-size:21px}.why-proof{gap:18px 30px}}
 @media(max-width:640px){.why-us{gap:32px}.why-heading h2{font-size:43px}.why-heading>p:not(.eyebrow){font-size:15px;margin-top:22px}.why-heading .why-audience{font-size:12px!important}.why-heading .text-link{font-size:12px;margin-top:16px}.why-reasons{grid-template-columns:1fr}.why-reasons article{padding:22px 0}.why-reasons h3{font-size:22px;margin-bottom:11px}.why-reasons p{font-size:14px}.why-evidence{font-size:11px;margin-top:13px}.why-proof{grid-template-columns:1fr;gap:12px;padding-top:24px}.why-proof a{grid-column:auto}.why-proof p{font-size:12px}}
+/* Client portfolio: full compositions, restrained album frames, native accessible controls. */
+.credentials-panel{grid-column:1/-1;display:grid;grid-template-columns:1.15fr 1fr;gap:50px;padding:42px;background:var(--chalk);align-items:center}
+.story-label{display:block;font-size:11px;font-weight:600;letter-spacing:.13em;color:var(--red);margin-bottom:16px}
+.credentials-copy h3{font-size:clamp(28px,3.2vw,46px);line-height:1.12;letter-spacing:-.04em;margin-bottom:20px}
+.credentials-copy>p{font-size:15px;line-height:1.8;color:var(--muted)}
+.credentials-copy .credential-detail{font-size:12px;margin-top:14px}.credentials-copy .text-link{font-size:12px;margin-top:12px}
+.credential-marks{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.credential-marks img{width:100%;max-width:200px;margin:auto;mix-blend-mode:multiply;object-fit:contain}
+.credential-marks figcaption{text-align:center;font-size:10px;color:var(--muted);margin-top:12px}
+.service-project-links{border-top:1px solid var(--line);margin-top:12px;padding-top:8px;display:flex;flex-wrap:wrap;gap:0 22px}
+.service-project-links a{margin-top:0;color:var(--red);font-size:12px;gap:10px}
+.portfolio-filters{display:flex;flex-wrap:wrap;gap:8px;border-block:1px solid var(--line);padding:16px 0}
+.portfolio-filters button{min-height:44px;padding:10px 16px;font-size:12px;background:transparent;border:1px solid transparent;transition:background .25s,color .25s}
+.portfolio-filters button:hover{border-color:var(--line)}.portfolio-filters button.is-active{background:var(--ink);color:var(--light)}
+.portfolio-status{font-size:11px;color:var(--muted);margin:17px 0 30px}
+.portfolio-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px 32px}
+.portfolio-album[hidden],.renovation-story[hidden],.comparison-panel[hidden]{display:none}
+.album-cover{display:grid;grid-template-columns:1fr .36fr;gap:5px;background:var(--chalk);position:relative;overflow:hidden;padding:8px;min-width:0}
+.album-primary{width:100%;height:375px;object-fit:contain;transition:opacity .3s}
+.album-filmstrip{display:grid;grid-template-rows:1fr 1fr;gap:5px;min-width:0;height:375px}
+.album-filmstrip img{width:100%;height:100%;max-height:185px;object-fit:contain;background:rgba(34,37,34,.04)}
+.album-count{position:absolute;bottom:18px;left:18px;right:18px;display:flex;align-items:center;justify-content:space-between;pointer-events:none;background:rgba(34,37,34,.92);color:var(--light);padding:10px 14px;font-size:11px;letter-spacing:.025em}.album-count>span{font-size:23px}
+.album-cover:hover .album-primary{opacity:.85}.album-cover:hover .album-count{background:var(--red)}
+.album-caption{padding-top:18px}.album-caption h3{font-size:24px;letter-spacing:-.035em}.album-caption p{font-size:13px;color:var(--muted);margin-top:6px}
+.renovation-story{margin-top:80px;border-top:1px solid var(--line);padding-top:55px}
+.comparison-heading{display:flex;gap:35px;align-items:end;justify-content:space-between;margin-bottom:30px}
+.comparison-heading h3{font-size:clamp(30px,3vw,46px);line-height:1.15;letter-spacing:-.04em}
+.comparison-heading p{font-size:14px;color:var(--muted);margin-top:14px}
+.comparison-tabs{display:flex;gap:6px;flex-shrink:0;align-items:stretch;border:1px solid var(--line);padding:4px}
+.comparison-tabs button{font-size:12px;min-height:44px;padding:10px 15px;background:transparent}.comparison-tabs button[aria-selected=true]{background:var(--ink);color:var(--light)}
+.comparison-panel{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.comparison-photo{position:relative;background:var(--chalk);padding:12px}
+.comparison-photo a{display:block}.comparison-photo img{height:480px;object-fit:contain}
+.phase-label{position:absolute;top:24px;left:24px;z-index:1;background:var(--ink);color:var(--light);padding:7px 16px;font-size:12px;pointer-events:none}
+.phase-after{background:var(--red)}.photo-zoom{position:absolute;bottom:22px;right:22px;pointer-events:none;background:var(--paper);width:42px;height:42px;display:grid;place-items:center;font-size:24px}
+.comparison-panel figcaption{display:flex;justify-content:space-between;gap:15px;margin-top:13px;font-size:16px}.comparison-panel figcaption span{font-size:11px;color:var(--muted)}
+.comparison-note{font-size:12px;color:var(--muted);margin-top:24px;max-width:700px}
+.gallery-original{font-size:11px;color:#c7cbc2;display:inline-flex;align-items:center;min-height:32px;text-decoration:underline;text-underline-offset:4px}
+.gallery-image-wrap img{height:57svh;max-height:630px}.gallery-info{padding:20px 32px}.gallery-thumbnails{display:flex;gap:10px;padding:0 32px 22px;overflow-x:auto}
+.gallery-thumb{padding:4px;background:transparent;border:1px solid rgba(247,246,242,.2);flex:0 0 68px;height:70px}.gallery-thumb img{height:100%;width:100%;object-fit:contain}
+.gallery-thumb[aria-pressed=true]{border-color:#e88d79;background:rgba(247,246,242,.12)}
+@media(max-width:1000px){.credentials-panel{grid-template-columns:1fr;gap:35px}.credential-marks{max-width:450px}.album-primary,.album-filmstrip{height:315px}.album-filmstrip img{max-height:155px}.comparison-heading{display:block}.comparison-tabs{width:max-content;margin-top:24px}.comparison-photo img{height:390px}.comparison-panel figcaption{display:block}.comparison-panel figcaption span{display:block;margin-top:4px}}
+@media(max-width:640px){.credentials-panel{padding:26px 22px;gap:26px}.credentials-copy h3{font-size:33px}.credentials-copy>p{font-size:14px}.credential-marks{gap:18px}.credential-marks figcaption{font-size:9px}.portfolio-filters{gap:4px;padding:12px 0}.portfolio-filters button{padding:8px 11px;font-size:11px}.portfolio-status{margin-bottom:23px}.portfolio-grid{grid-template-columns:1fr;gap:33px}.album-cover{grid-template-columns:1fr .34fr}.album-primary,.album-filmstrip{height:330px}.album-filmstrip img{max-height:162px}.album-caption h3{font-size:22px}.album-caption p{font-size:13px}.album-count{font-size:10px}.renovation-story{margin-top:48px;padding-top:35px}.comparison-heading h3{font-size:33px}.comparison-heading p{font-size:13px}.comparison-tabs{margin-top:20px;max-width:100%}.comparison-tabs button{font-size:11px;padding:9px 13px}.comparison-panel{gap:10px}.comparison-photo{padding:4px}.comparison-photo img{height:240px}.phase-label{top:10px;left:10px;padding:5px 10px;font-size:10px}.photo-zoom{width:30px;height:30px;font-size:18px;right:10px;bottom:10px}.comparison-panel figcaption{font-size:12px}.comparison-panel figcaption span{font-size:10px}.comparison-note{font-size:11px;line-height:1.8}.gallery-image-wrap img{height:49svh}.gallery-info{padding:18px 20px}.gallery-info h2{font-size:24px}.gallery-controls{margin-top:12px}.gallery-thumbnails{padding:0 20px 20px;gap:8px}.gallery-thumb{flex-basis:58px;height:60px}.gallery-original{font-size:10px}}
+.gallery-clarity{display:inline-flex;align-items:center;min-height:40px;font-size:11px;padding:5px 12px;margin-left:15px;background:transparent;border:1px solid rgba(247,246,242,.3);color:var(--light)}.gallery-clarity[hidden]{display:none}

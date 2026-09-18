@@ -29,5 +29,18 @@ const home = await readFile(resolve(root, 'index.html'), 'utf8');
 assert.equal([...home.matchAll(/<h1\b/g)].length, 1, 'Home needs one primary heading');
 for (const [, phone] of home.matchAll(/href="(?:tel|sms):([^"]+)"/g)) assert.equal(phone, '+64210622832');
 assert.ok(home.includes('not verified customer testimonials'), 'Sample review disclosure missing');
-assert.ok(home.includes('not completed Continental projects'), 'Stock project disclosure missing');
+assert.ok(home.includes('Architectural inspiration / stock photography'), 'Background stock disclosure missing');
+const { projects } = await import('../portfolio-data.js');
+assert.equal(projects.length, 23, 'Expected all 23 supplied site photographs');
+for (const photo of projects) {
+  await access(resolve(root, 'images', photo.file));
+  await access(resolve(root, 'images', photo.thumb));
+  await access(resolve(root, photo.source));
+  if (photo.enhancedFile) await access(resolve(root, 'images', photo.enhancedFile));
+}
+assert.equal(new Set(projects.map(photo => photo.id)).size, projects.length, 'Photo IDs must be unique');
+for (const pair of [1,2]) {
+  assert.equal(projects.filter(photo => photo.pair === pair && photo.stage === 'Before').length, 1);
+  assert.equal(projects.filter(photo => photo.pair === pair && photo.stage === 'After').length, 1);
+}
 console.log(`PASS: ${pages.length} pages; ${checked} local links and assets; IDs, contact links and content disclosures.`);

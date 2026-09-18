@@ -22,3 +22,7 @@ Primary background sources reviewed 2026-09-17:
 - MBIE Building Performance, once building work finishes: https://www.building.govt.nz/getting-started/your-rights-and-obligations/homeowner-rights-and-obligations/know-your-rights-consumers/once-building-work-finishes
 
 These sources inform the emphasis on scope, timing, variations, project contacts and handover. They do not endorse the company. The website does not offer legal advice or reproduce specific legal thresholds.
+
+## Client confirmation — 2026-09-19
+
+The client confirmed actual team LBP / BCITO qualifications and permission to display the supplied marks. Specific licence numbers will follow. Copy distinguishes individual LBP licensing from BCITO trade qualifications/training and links to the official register. Portfolio now contains 23 client-supplied photographs; earlier placeholder-only notes do not apply to these albums.

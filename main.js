@@ -1,3 +1,4 @@
+import { projects } from './portfolio-data.js';
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const menuToggle = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
@@ -81,29 +82,103 @@ reducedMotion.addEventListener('change', event => {
   if (event.matches) syncReviewControl(true);
 });
 
-const projects = [
-  { file: 'woodland-house.jpg', title: 'Timber & light', alt: 'Contemporary timber and charcoal house set among trees' },
-  { file: 'kitchen.jpg', title: 'Space to come together', alt: 'Contemporary white and timber kitchen with a large island' },
-  { file: 'deck.jpg', title: 'A little closer to nature', alt: 'Wooden deck opening onto a leafy backyard' },
-  { file: 'timber-facade.jpg', title: 'A fresh first impression', alt: 'Modern exterior with timber fencing, a wooden gate and stone cladding' },
-];
+const filterButtons = [...document.querySelectorAll('[data-filter]')];
+function filterProjects(category) {
+  filterButtons.forEach(button => {
+    const selected = button.dataset.filter === category;
+    button.classList.toggle('is-active', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+  let visible = 0;
+  document.querySelectorAll('.portfolio-album').forEach(album => {
+    album.hidden = category !== 'all' && album.dataset.category !== category;
+    if (!album.hidden) visible++;
+  });
+  const count = projects.filter(photo => category === 'all' || photo.category === category).length;
+  document.querySelector('#portfolio-status').textContent = `${visible} ${visible === 1 ? 'gallery' : 'galleries'} · ${count} photographs`;
+  document.querySelector('#renovation-comparison').hidden = category !== 'all' && category !== 'recladding';
+}
+filterButtons.forEach(button => button.addEventListener('click', () => filterProjects(button.dataset.filter)));
+document.querySelectorAll('[data-select-category]').forEach(link => link.addEventListener('click', () => filterProjects(link.dataset.selectCategory)));
+
+const comparisonTabs = [...document.querySelectorAll('.comparison-tabs [role="tab"]')];
+function selectComparison(selected, focus = false) {
+  comparisonTabs.forEach(tab => {
+    const active = tab === selected;
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+    document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+  });
+  if (focus) selected.focus();
+}
+comparisonTabs.forEach((tab,index) => {
+  tab.addEventListener('click', () => selectComparison(tab));
+  tab.addEventListener('keydown', event => {
+    const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+    if (!step && !['Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? comparisonTabs.length - 1 : (index + step + comparisonTabs.length) % comparisonTabs.length;
+    selectComparison(comparisonTabs[next], true);
+  });
+});
+
 const gallery = document.querySelector('#gallery');
+let albumPhotos = projects;
 let activeProject = 0;
 let galleryTrigger;
+const clarityButton = document.createElement('button');
+clarityButton.className = 'gallery-clarity';
+clarityButton.hidden = true;
+clarityButton.type = 'button';
+document.querySelector('#gallery-original').after(clarityButton);
+clarityButton.addEventListener('click', () => {
+  const photo = albumPhotos[activeProject];
+  const enhanced = clarityButton.getAttribute('aria-pressed') !== 'true';
+  document.querySelector('#gallery-image').src = `./images/${enhanced ? photo.enhancedFile : photo.file}`;
+  clarityButton.setAttribute('aria-pressed', String(enhanced));
+  clarityButton.textContent = enhanced ? 'Return to original view' : 'View clarity enhancement';
+  document.querySelector('#gallery-caption').textContent = photo.caption + (enhanced ? ' · AI-assisted clarity view. Refer to the original for site details.' : ' · Company-supplied site photograph.');
+});
 function renderProject(index) {
-  activeProject = (index + projects.length) % projects.length;
-  const project = projects[activeProject];
+  activeProject = (index + albumPhotos.length) % albumPhotos.length;
+  const project = albumPhotos[activeProject];
   const image = document.querySelector('#gallery-image');
   image.src = `./images/${project.file}`;
   image.alt = project.alt;
+  image.width = project.width;
+  image.height = project.height;
   document.querySelector('#gallery-title').textContent = project.title;
-  document.querySelector('#gallery-count').textContent = `${activeProject + 1} / ${projects.length}`;
+  document.querySelector('#gallery-caption').textContent = project.caption + (project.enhanced ? ' · Lightly enhanced for clarity; original available below.' : ' · Company-supplied site photograph.');
+  document.querySelector('#gallery-count').textContent = `${activeProject + 1} / ${albumPhotos.length}`;
+  document.querySelector('#gallery-original').href = './' + encodeURI(project.source);
+  clarityButton.hidden = !project.enhancedFile;
+  clarityButton.setAttribute('aria-pressed', 'false');
+  clarityButton.textContent = 'View clarity enhancement';
+  document.querySelectorAll('.gallery-thumb').forEach((button,index) => {
+    button.setAttribute('aria-pressed', String(index === activeProject));
+  });
 }
-document.querySelectorAll('[data-project]').forEach(link => link.addEventListener('click', event => {
+document.querySelectorAll('[data-photo]').forEach(link => link.addEventListener('click', event => {
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || typeof gallery.showModal !== 'function') return;
   event.preventDefault();
   galleryTrigger = link;
-  renderProject(Number(link.dataset.project));
+  const selected = projects.find(photo => photo.id === link.dataset.photo);
+  albumPhotos = projects.filter(photo => photo.category === selected.category);
+  const thumbnails = document.querySelector('#gallery-thumbnails');
+  thumbnails.replaceChildren(...albumPhotos.map((photo,index) => {
+    const button = document.createElement('button');
+    button.className = 'gallery-thumb';
+    button.setAttribute('aria-label', `View ${photo.caption}`);
+    const image = document.createElement('img');
+    image.src = `./images/${photo.thumb}`;
+    image.alt = '';
+    image.width = photo.width;
+    image.height = photo.height;
+    button.append(image);
+    button.addEventListener('click', () => renderProject(index));
+    return button;
+  }));
+  renderProject(albumPhotos.indexOf(selected));
   gallery.showModal();
   document.body.classList.add('modal-open');
   gallery.querySelector('.gallery-close').focus();
